@@ -8,20 +8,20 @@ import { handleErrors } from "$lib/handle_error";
 //const prisma = new PrismaClient();
 
 export const post: RequestHandler =async ({request}) => {
-    const jsonData = await request.json();
-    const username = jsonData.username;
-    const password = jsonData.password;
+    // const jsonData = await request.json();
+    // console.log("jsonData==>", jsonData);
+    // const email = jsonData.email;
+    // const password = jsonData.password;
 
-    if (!validator.isEmail(username)){
-        return {
-            status: 400,
-            body: {
-                error: 'Please enter a valied email.'
-            }
-        }
-    }
+    const formData = await request.formData();
+    console.log("formData==>",formData);
+    const email = formData.get('email');
+    const password = formData.get('password');
+    
 
-    if (typeof username !== 'string' || typeof password !== 'string'){
+    
+
+    if (typeof email !== 'string' || typeof password !== 'string'){
         return {
             status: 400,
             body: {
@@ -30,20 +30,29 @@ export const post: RequestHandler =async ({request}) => {
         }
     }
 
-    if (!username || !password){
+    if (!email || !password){
         return {
             status: 400,
             body: {
-                error: 'Username and Password is required.'
+                error: 'email and Password is required.'
             }
         }
     }
     try {
          
+        if (!validator.isEmail(email)){
+            return {
+                status: 400,
+                body: {
+                    error: 'Please enter a valied email.'
+                }
+            }
+        } 
+        
         const salt = await bcrypt.genSalt();
         const passwordHash = await bcrypt.hash(password, salt);
         let user = {
-            username,
+            email,
             password: passwordHash
         };
 

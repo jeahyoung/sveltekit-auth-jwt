@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { send } from "$lib/api";
+    import { send, sendJson } from "$lib/api";
 
     export let error: string;
     export let success: string;

@@ -14,3 +14,14 @@ export const send = async (form: HTMLFormElement): Send => {
 
     return await response.json();
 }
+
+export const sendJson = async (form: HTMLFormElement): Send => {
+    
+    const response = await fetch(form.action,{
+        method: form.method,
+        body: JSON.stringify(form),
+        headers: {accept: 'application/json'},
+    });
+
+    return await response.json();
+}
