@@ -12,7 +12,8 @@
 		"test": "playwright test",
 		"lint": "prettier --check --plugin-search-dir=. . && eslint .",
 		"format": "prettier --write --plugin-search-dir=. .",
-		"prisma-db-push": "prisma db push"
+		"prisma-db-push": "prisma db push",
+		"prisma-studio": "npx prisma studio"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.22.2",
