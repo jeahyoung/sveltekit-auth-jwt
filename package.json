@@ -20,6 +20,7 @@
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/kit": "next",
 		"@types/bcrypt": "^5.0.0",
+		"@types/cookie": "^0.5.1",
 		"eslint": "^8.16.0",
 		"eslint-config-prettier": "^8.3.0",
 		"eslint-plugin-svelte3": "^4.0.0",
@@ -36,6 +37,7 @@
 	"dependencies": {
 		"@prisma/client": "^4.0.0",
 		"bcrypt": "^5.0.1",
+		"cookie": "^0.5.0",
 		"jsonwebtoken": "^8.5.1",
 		"validator": "^13.7.0"
 	}

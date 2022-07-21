@@ -25,3 +25,4 @@ export const sendJson = async (form: HTMLFormElement): Send => {
 
     return await response.json();
 }
+
