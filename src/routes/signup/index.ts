@@ -40,16 +40,17 @@ export const post: RequestHandler =async ({request}) => {
             }
         }
     }
-    try {
-         
-        if (!validator.isEmail(email)){
-            return {
-                status: 400,
-                body: {
-                    error: 'Please enter a valied email.'
-                }
+
+    if (!validator.isEmail(email)){
+        return {
+            status: 400,
+            body: {
+                error: 'Please enter a valied email.'
             }
-        } 
+        }
+    } 
+
+    try {
         
         const salt = await bcrypt.genSalt();
         const passwordHash = await bcrypt.hash(password, salt);
@@ -59,16 +60,16 @@ export const post: RequestHandler =async ({request}) => {
         };
 
         const createUser = await db.user.create({data: user });
-        console.log(createUser,"<==");
+        //console.log(createUser,"<==");
         if(createUser){
-            const token = createToken(createUser.id);
+            //const token = createToken(createUser.id);
             return {
                 status: 201,
                 body: {
                     success: 'Success',
                     data: createUser
                 },
-                headers: {
+                /* headers: {
                     'Set-Cookie': cookie.serialize('jwt', token, {
                         // send cookie for every page
                         path: '/',
@@ -81,7 +82,8 @@ export const post: RequestHandler =async ({request}) => {
                         // set cookie to expire after a month
                         maxAge: maxAge * 30
                     }),
-                }
+                    
+                } */
             }
         } else {
             console.log("Exist user");
@@ -94,11 +96,11 @@ export const post: RequestHandler =async ({request}) => {
         }
         
     } catch (error) {
-        handleErrors(error);
+        const errorMessage = handleErrors(error);
         return {
             status: 400,
             body: {
-                error: 'Error',
+                error: errorMessage,
             }
         }
     }

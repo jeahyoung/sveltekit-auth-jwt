@@ -1,3 +1,23 @@
+<script lang="ts" context="module">
+    import type { Load } from "@sveltejs/kit";
+
+    export const load: Load = ({ session, props }) => {
+        if (session.user){
+            return {
+                status: 302,
+                redirect: '/',
+            }
+        }
+        return { 
+            status: 200,
+            props: {
+                success: '',
+                error: '',
+            }
+         }
+    }
+</script>
+
 <script lang="ts">
     import { send } from "$lib/api";
 
@@ -5,16 +25,23 @@
     export let success: string;
 
     const login = async (event:SubmitEvent) => {
+        error = '';
+        success = ''; 
+
         const formEl = event.target as HTMLFormElement;
 
         const response = await send(formEl);
 
+        console.log("login res", response);
         if (response.error){
             error = response.error;
         }
 
         if(response.success){
             success = response.success;
+            if(response.data){
+                location.assign('/');
+            }
         }
 
         formEl.reset();
@@ -25,9 +52,15 @@
     <h2>Log in</h2>
     <label for="email">Email</label>
     <input type="text" name="email" required />
-    <div class="email error"></div>
     <label for="password">Password</label>
     <input type="password" name="password" required>
-    <div class="password error"></div>
+    {#if error}
+    <div class="error">{error}</div>
+    {/if}
+
+    {#if success}
+        <p>Thank you for signing up!</p>
+        <p><a href="/login">You can log in.</a></p>
+    {/if}
     <button type="submit">Log in</button>
 </form>
