@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body{
+    @apply mx-5 my-10 text-xl tracking-normal bg-white
+  }
+
+  h1, h2, h3, h4, ul, li, a, p, input, label, button, div, footer{
+    @apply m-0 p-0 font-body text-gray-600
+  }
+
+  ul {
+    @apply list-none
+  }
+
+  nav {
+    @apply flex justify-between items-end mb-32
+  }
+
+  nav ul {
+    @apply flex items-center
+  }
+
+  nav li {
+    @apply ml-5
+  }
+
+  nav li a {
+    @apply uppercase font-bold text-sm block px-2 py-4 tracking-wide
+  }
+
+  .btn {
+    @apply rounded-xl bg-amber-200
+  }
+
+  form h2{
+    @apply text-4xl font-black mb-10
+  }
+
+  form {
+    @apply w-80 mx-0 my-auto p-7 shadow-blue-500/50 rounded-lg bg-white
+  }
+
+  input {
+    @apply px-2 py-3 rounded border-solid border-2 border-slate-100 text-base w-full
+  }
+
+  label {
+    @apply block mt-5 mx-0 mb-2
+  }
+
+  button {
+    @apply mt-7 rounded-xl bg-amber-500 border-0 uppercase font-bold text-2xl block px-2 py-4 tracking-widest
+  }
+
+  .error {
+    @apply text-rose-700 mx-2 my-1 text-sm font-bold
+  }
+
+  header {
+    @apply flex items-center
+  }
+
+  header img {
+    @apply w-60 mr-10
+  }
+
+  header h2 {
+    @apply text-5xl mb-2
+  }
+
+  header h3{
+    @apply text-2xl mb-2 ml-1 text-gray-500
+  }
+
+  header .btn {
+    @apply mt-5 px-3 py-4 uppercase font-bold inline-block text-sm
+  }
+
+  .recipes{
+    @apply grid grid-cols-3 gap-x-7 gap-y-20 mx-20 my-auto max-w-5xl
+  }
+
+  .recipe{
+    @apply inline-block rounded-2xl relative text-center pt-0 pr-5 pb-7 pl-5
+  }
+  .recipe img{
+    @apply w-auto -mt-7 mx-auto mb-5
+  }
+  footer{
+    @apply text-center mt-32 text-gray-500
+  }
