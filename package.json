@@ -28,7 +28,7 @@
 		"postcss": "^8.4.14",
 		"prettier": "^2.6.2",
 		"prettier-plugin-svelte": "^2.7.0",
-		"prisma": "^4.0.0",
+		"prisma": "^4.1.0",
 		"svelte": "^3.44.0",
 		"svelte-check": "^2.7.1",
 		"svelte-preprocess": "^4.10.7",
@@ -38,9 +38,10 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@prisma/client": "^4.0.0",
+		"@prisma/client": "^4.1.0",
 		"bcrypt": "^5.0.1",
 		"cookie": "^0.5.0",
+		"dotenv": "^16.0.1",
 		"jsonwebtoken": "^8.5.1",
 		"validator": "^13.7.0"
 	}

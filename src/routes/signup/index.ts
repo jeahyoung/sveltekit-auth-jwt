@@ -4,7 +4,6 @@ import validator from "validator";
 import * as bcrypt from "bcrypt";
 import * as cookie from "cookie";
 import { handleErrors } from "$lib/handle_error";
-import { createToken, maxAge } from "$lib/jwt";
 
 //import { PrismaClient } from "@prisma/client";
 //const prisma = new PrismaClient();
@@ -54,9 +53,11 @@ export const post: RequestHandler =async ({request}) => {
         
         const salt = await bcrypt.genSalt();
         const passwordHash = await bcrypt.hash(password, salt);
+        //const refreshToken = createRefreshToken();
         let user = {
             email,
-            password: passwordHash
+            password: passwordHash,
+            refreshToken: ''
         };
 
         const createUser = await db.user.create({data: user });

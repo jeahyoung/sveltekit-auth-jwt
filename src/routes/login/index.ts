@@ -3,7 +3,7 @@ import * as bcrypt from "bcrypt";
 import * as cookie from "cookie";
 import validator from "validator";
 import { db } from "$lib/database";
-import { createToken, maxAge } from "$lib/jwt";
+import { createAccessToken, createRefreshToken, maxAge } from "$lib/jwt";
 
 export const post: RequestHandler =async ({ request }) => {
     const form = await request.formData();
@@ -52,8 +52,44 @@ export const post: RequestHandler =async ({ request }) => {
         }
     }
 
-    const token = createToken(user.id); 
+    const refreshToken = createRefreshToken();
+    const accessToken = createAccessToken(user.id, user.email); 
 
+    const updateUser = await db.user.update({
+        where: {
+            id: user.id
+        },
+        data: {
+            refreshToken: refreshToken
+        },
+    });
+
+   
+    const cookies = [];
+    cookies.push(cookie.serialize('accessToken', accessToken, {
+        // send cookie for every page
+        path: '/',
+        // server side only cookie so you can't use `document.cookie`
+        httpOnly: true,
+        // only requests from same site can send cookies and serves to protect from CSRF
+        sameSite: 'strict',
+        // only sent over HTTPS
+        secure: process.env.NODE_ENV === 'production',
+        // set cookie to expire after a month
+        maxAge: 60 * 60 * 1
+    }));
+    cookies.push(cookie.serialize('refreshToken', refreshToken, {
+        // send cookie for every page
+        path: '/',
+        // server side only cookie so you can't use `document.cookie`
+        httpOnly: true,
+        // only requests from same site can send cookies and serves to protect from CSRF
+        sameSite: 'strict',
+        // only sent over HTTPS
+        secure: process.env.NODE_ENV === 'production',
+        // set cookie to expire after a month
+        maxAge: maxAge * 14
+    }));
     return {
         status: 200,
         body: {
@@ -61,18 +97,7 @@ export const post: RequestHandler =async ({ request }) => {
             success: 'Success.',
         },
         headers: {
-            'Set-Cookie': cookie.serialize('token', token, {
-                // send cookie for every page
-                path: '/',
-                // server side only cookie so you can't use `document.cookie`
-                httpOnly: true,
-                // only requests from same site can send cookies and serves to protect from CSRF
-                sameSite: 'strict',
-                // only sent over HTTPS
-                secure: process.env.NODE_ENV === 'production',
-                // set cookie to expire after a month
-                maxAge: 60 * 10
-            }),
+            'Set-Cookie': cookies,
             
         }
     }
