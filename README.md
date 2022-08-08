@@ -30,7 +30,8 @@ npm run build
 ## Credits
 
 ```
-ErrorHandle came from: https://github.com/moatra/sveltekit-redirect-error-handler
+The JWT Auth Example came from: https://github.com/jeahyoung/sveltekit-auth-jwt
+The ErrorHandle came from: https://github.com/moatra/sveltekit-redirect-error-handler
 ```
 
 You can preview the production build with `npm run preview`.
