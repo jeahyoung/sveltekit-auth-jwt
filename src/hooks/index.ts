@@ -10,6 +10,9 @@ import { createRefreshToken, maxAge, createAccessToken } from '$lib/jwt';
 type JwtPayload = {
 	id: number;
 };
+export const handleError = async ({error, request}) => {
+	console.error(`handleError() called for ${request.url.pathname}`, error);
+}
 
 export const handle: Handle = async ({ event, resolve }) => {
 	/* const cookieHeader = event.request.headers.get('cookie');
