@@ -1,4 +1,4 @@
-# Start sveltekit-auth-jwt
+## Start sveltekit-auth-jwt
 
 Step1) `npm install` (or `pnpm install` or `yarn`)
 Step2) rename .env-example to .env and fill set the jwt secret
