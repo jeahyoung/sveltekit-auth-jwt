@@ -32,7 +32,8 @@
 
 		const response = await send(formEl);
 
-		console.log('login res', response);
+		console.log('Login/index: response', response);
+        
 		if (response.error) {
 			error = response.error;
 		}
