@@ -1,7 +1,7 @@
 import type { RequestHandler } from "@sveltejs/kit";
 import { db } from "$lib/database";
 import validator from "validator";
-import * as bcrypt from "bcrypt";
+import * as bcrypt from "bcrypt-updated";
 import * as cookie from "cookie";
 import { handleErrors } from "$lib/handle_error";
 
@@ -18,9 +18,9 @@ export const post: RequestHandler =async ({request}) => {
     console.log("formData==>",formData);
     const email = formData.get('email');
     const password = formData.get('password');
-    
 
-    
+
+
 
     if (typeof email !== 'string' || typeof password !== 'string'){
         return {
@@ -47,10 +47,10 @@ export const post: RequestHandler =async ({request}) => {
                 error: 'Please enter a valied email.'
             }
         }
-    } 
+    }
 
     try {
-        
+
         const salt = await bcrypt.genSalt();
         const passwordHash = await bcrypt.hash(password, salt);
         //const refreshToken = createRefreshToken();
@@ -83,7 +83,7 @@ export const post: RequestHandler =async ({request}) => {
                         // set cookie to expire after a month
                         maxAge: maxAge * 30
                     }),
-                    
+
                 } */
             }
         } else {
@@ -95,7 +95,7 @@ export const post: RequestHandler =async ({request}) => {
                 }
             }
         }
-        
+
     } catch (error) {
         const errorMessage = handleErrors(error);
         return {
@@ -105,6 +105,6 @@ export const post: RequestHandler =async ({request}) => {
             }
         }
     }
-    
+
     return {};
 }
