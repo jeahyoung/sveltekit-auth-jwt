@@ -2,6 +2,8 @@ import 'dotenv/config';
 import pkg from 'jsonwebtoken';
 const { sign } = pkg;
 
+//TODO create env all options here or some sort of config file
+
 export const maxAge = 1 * 24 * 60 * 60;
 export const createToken = (id: number) => {
 	const jwt_secret: string = process.env.JWT_SECRET || '';
