@@ -1,17 +1,11 @@
-# create-svelte
+## Start sveltekit-auth-jwt
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+```
+Step1) `npm install` (or `pnpm install` or `yarn`)
+Step2) rename .env-example to .env and fill set the jwt secret
+Step3) prisma-db-push (NPM SCRIPTS) only if the dev.db file is not there.
+Step4) prisma-studio (NPM SCRIPTS) Create a user
 
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm init svelte
-
-# create a new project in my-app
-npm init svelte my-app
 ```
 
 ## Developing
