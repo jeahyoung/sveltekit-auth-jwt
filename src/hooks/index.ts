@@ -1,5 +1,5 @@
 import { db } from '$lib/database';
-import type { GetSession, Handle } from '@sveltejs/kit';
+import type { GetSession, Handle,HandleError } from '@sveltejs/kit';
 import * as cookie from 'cookie';
 import pkg from 'jsonwebtoken';
 const { verify, decode } = pkg;
@@ -10,8 +10,8 @@ import { createRefreshToken, maxAge, createAccessToken } from '$lib/jwt';
 type JwtPayload = {
 	id: number;
 };
-export const handleError = async ({error, request}) => {
-	console.error(`handleError() called for ${request.url.pathname}`, error);
+export const handleError : HandleError= async ({error, event}) => {
+	console.error(`handleError() called for ${event.request.url}`, error);
 }
 
 export const handle: Handle = async ({ event, resolve }) => {
