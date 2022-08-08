@@ -75,8 +75,8 @@ export const post: RequestHandler = async ({ request }) => {
 			sameSite: 'strict',
 			// only sent over HTTPS
 			secure: process.env.NODE_ENV === 'production',
-			// set cookie to expire after a month
-			maxAge: 60 * 60 * 1
+			// set cookie to expire after a 1minute
+			maxAge: 60
 		})
 	);
 	cookies.push(

@@ -23,7 +23,7 @@ export const createRefreshToken = () => {
 export const createAccessToken = (id: number, email: string) => {
 	const jwt_secret: string = process.env.JWT_SECRET || '';
 	return sign({ id, email }, jwt_secret, {
-		expiresIn: '1h',
+		expiresIn: '1m',
 		issuer: 'lj'
 	});
 };
