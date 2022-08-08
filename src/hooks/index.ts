@@ -19,11 +19,11 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	const { accessToken, refreshToken } = cookie.parse(event.request.headers.get('cookie') || '');
 	const jwt_secret = process.env.JWT_SECRET || '';
-	//console.log("token==>",token);
+	//console.log("[hooks] token==>",token);
 	if (accessToken) {
 		const user = verify(accessToken, jwt_secret) as JwtPayload;
 		if (refreshToken) {
-			console.log('==1==');
+			console.log('[hooks] ==1==');
 			if (user) {
 				const session = await db.user.findUnique({
 					where: {
@@ -36,12 +36,12 @@ export const handle: Handle = async ({ event, resolve }) => {
 				});
 
 				if (session) {
-					console.log('==1==session==>', session);
+					console.log('[hooks] ==1==session==>', session);
 					event.locals.user = { id: session.id, email: session.email };
 				}
 			}
 		} else {
-			console.log('==2==');
+			console.log('[hooks] ==2==');
 			if (user) {
 				const newRefreshToken = createRefreshToken();
 				const updateUser = await db.user.update({
@@ -85,7 +85,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 		}
 	} else {
 		if (refreshToken) {
-			console.log('==3==');
+			console.log('[hooks] ==3==');
 			const session = await db.user.findUnique({
 				where: { refreshToken: refreshToken },
 				select: { id: true, email: true }
@@ -135,16 +135,16 @@ export const handle: Handle = async ({ event, resolve }) => {
         event.locals = { username: session.username }
     }
  */
-	console.log('==return==');
+	console.log('[hooks] ==return==');
 	//event.locals.user = { id: 9999, email: "email@email.email" };
-	console.log('==return==>', event.locals);
+	console.log('[hooks] ==return==>', event.locals);
 	const response = await resolve(event);
 	response.headers.set('Set-Cookie', setCookie);
 	return response;
 };
 
 export const getSession: GetSession = ({ locals }) => {
-	console.log('getSession==>', locals);
+	console.log('[hooks] getSession==>', locals);
 	if (!locals.user) return {};
 
 	return {
