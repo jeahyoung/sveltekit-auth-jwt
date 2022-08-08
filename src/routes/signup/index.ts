@@ -10,7 +10,7 @@ import { handleErrors } from '$lib/handle_error';
 
 export const post: RequestHandler = async ({ request }) => {
 	// const jsonData = await request.json();
-	// console.log("jsonData==>", jsonData);
+	// console.log("SignUp/index.ts: jsonData==>", jsonData);
 	// const email = jsonData.email;
 	// const password = jsonData.password;
 
@@ -57,7 +57,7 @@ export const post: RequestHandler = async ({ request }) => {
 		};
 
 		const createUser = await db.user.create({ data: user });
-		//console.log(createUser,"<==");
+		//console.log("SignUp/index.ts: createUser",createUser);
 		if (createUser) {
 			//const token = createToken(createUser.id);
 			return {
@@ -83,7 +83,7 @@ export const post: RequestHandler = async ({ request }) => {
                 } */
 			};
 		} else {
-			console.log('Exist user');
+			console.log('SignUp/index.ts: Exist user');
 			return {
 				status: 400,
 				body: {
