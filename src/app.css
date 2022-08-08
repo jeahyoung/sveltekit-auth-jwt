@@ -1,11 +1,70 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
-	@apply mx-5 my-10 text-xl tracking-normal bg-white;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+body {
+	@apply bg-white text-xl tracking-normal font-body;
+}
+
+.header-wrap {
+	@apply p-5;
+	@apply bg-blue-400;
+}
+
+header {
+	@apply flex items-center;
+	img {
+		@apply mr-10 w-60;
+	}
+	h2 {
+		@apply mb-2 text-5xl;
+	}
+	h3 {
+		@apply mb-2 ml-1 text-2xl text-gray-500;
+	}
+}
+
+nav {
+	@apply flex w-full items-center justify-between;
+
+	ul {
+		@apply flex items-center;
+		li {
+			@apply ml-5;
+			a {
+				@apply block px-2 py-4 text-sm font-bold uppercase tracking-wide;
+			}
+
+			.btn {
+				@apply inline-block px-3 text-sm font-bold uppercase;
+			}
+		}
+	}
+}
+
+header,
+main,
+footer {
+	@apply w-full;
+	@apply max-w-screen-xl;
+	@apply mx-auto;
+}
+main,
+footer {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	padding: 1rem;
+	box-sizing: border-box;
+	@apply mt-32 text-center text-gray-500;
 }
 
 h1,
@@ -24,84 +83,44 @@ footer {
 	@apply m-0 p-0 font-body text-gray-600;
 }
 
-ul {
-	@apply list-none;
-}
-
-nav {
-	@apply flex justify-between items-end mb-32;
-}
-
-nav ul {
-	@apply flex items-center;
-}
-
-nav li {
-	@apply ml-5;
-}
-
-nav li a {
-	@apply uppercase font-bold text-sm block px-2 py-4 tracking-wide;
-}
-
 .btn {
 	@apply rounded-xl bg-amber-200;
 }
 
-form h2 {
-	@apply text-4xl font-black mb-10;
-}
-
-form {
-	@apply w-80 mx-0 my-auto p-7 shadow-blue-500/50 rounded-lg bg-white;
-}
-
-input {
-	@apply px-2 py-3 rounded border-solid border-2 border-slate-100 text-base w-full;
-}
-
-label {
-	@apply block mt-5 mx-0 mb-2;
-}
-
 button {
-	@apply mt-7 rounded-xl bg-amber-500 border-0 uppercase font-bold text-2xl block px-2 py-4 tracking-widest;
-}
-
-.error {
-	@apply text-rose-700 mx-2 my-1 text-sm font-bold;
-}
-
-header {
-	@apply flex items-center;
-}
-
-header img {
-	@apply w-60 mr-10;
-}
-
-header h2 {
-	@apply text-5xl mb-2;
-}
-
-header h3 {
-	@apply text-2xl mb-2 ml-1 text-gray-500;
-}
-
-header .btn {
-	@apply mt-5 px-3 py-4 uppercase font-bold inline-block text-sm;
+	@apply mt-7 block rounded-xl border-0 bg-amber-500 px-2 py-4 text-2xl font-bold uppercase tracking-widest;
 }
 
 .recipes {
-	@apply grid grid-cols-3 gap-x-7 gap-y-20 mx-20 my-auto max-w-5xl;
+	@apply mx-20 my-auto grid max-w-5xl grid-cols-3 gap-x-7 gap-y-20;
 }
 
 .recipe {
-	@apply inline-block rounded-2xl relative text-center pt-0 pr-5 pb-7 pl-5;
+	@apply relative inline-block rounded-2xl pt-0 pr-5 pb-7 pl-5 text-center;
+	img {
+		@apply mx-auto -mt-7 mb-5 w-auto;
+	}
 }
-.recipe img {
-	@apply w-auto -mt-7 mx-auto mb-5;
+
+ul {
+	@apply list-none;
 }
-footer {
-	@apply text-center mt-32 text-gray-500;
+
+form {
+	@apply mx-0 my-auto w-80 rounded-lg bg-white p-7 shadow-blue-500/50;
+	h2 {
+		@apply mb-10 text-4xl font-black;
+	}
+}
+
+input {
+	@apply w-full rounded border-2 border-solid border-slate-100 px-2 py-3 text-base;
+}
+
+label {
+	@apply mx-0 mt-5 mb-2 block;
+}
+
+.error {
+	@apply mx-2 my-1 text-sm font-bold text-rose-700;
 }
