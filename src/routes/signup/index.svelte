@@ -26,13 +26,14 @@
 
 		const response = await send(formEl);
 
+		console.log('SignUp/index: response', response);
+
 		if (response.error) {
 			error = response.error;
 		}
 
 		if (response.success) {
 			success = response.success;
-			console.log('response.data====>', response.data);
 			if (response.data) {
 				location.assign('/login');
 			}
