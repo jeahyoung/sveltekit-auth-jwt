@@ -2,7 +2,7 @@ import { db } from '$lib/database';
 import type { GetSession, Handle } from '@sveltejs/kit';
 import * as cookie from 'cookie';
 import pkg from 'jsonwebtoken';
-const { verify } = pkg;
+const { verify, decode } = pkg;
 
 import 'dotenv/config';
 import { createRefreshToken, maxAge, createAccessToken } from '$lib/jwt';
@@ -20,10 +20,17 @@ export const handle: Handle = async ({ event, resolve }) => {
 	const { accessToken, refreshToken } = cookie.parse(event.request.headers.get('cookie') || '');
 	const jwt_secret = process.env.JWT_SECRET || '';
 	//console.log("[hooks] token==>",token);
-	if (accessToken) {
+
+	// TODO Make this type safe
+	const token_exp = decode(accessToken, jwt_secret)?.exp * 1000;
+	console.log('[hooks] decode token==>', token_exp);
+	const isTokenExpired = new Date().getTime() > token_exp;
+	// console.log("[hooks] expired token==>",isTokenExpired);
+	if (accessToken && !isTokenExpired) {
+		console.log('[hooks] ==1== Access token is found.');
 		const user = verify(accessToken, jwt_secret) as JwtPayload;
 		if (refreshToken) {
-			console.log('[hooks] ==1==');
+			console.log('[hooks] ==1== Refresh token is found.');
 			if (user) {
 				const session = await db.user.findUnique({
 					where: {
@@ -145,6 +152,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 export const getSession: GetSession = ({ locals }) => {
 	console.log('[hooks] getSession==>', locals);
+
 	if (!locals.user) return {};
 
 	return {
