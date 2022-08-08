@@ -2,11 +2,10 @@
 	import type { Load } from '@sveltejs/kit';
 
 	export const load: Load = ({ session }) => {
-		console.log('Load====>', session.user);
 		if (!session.user) {
 			return {
 				status: 302,
-				redirect: '/login'
+				redirect: '/user/login'
 			};
 		}
 

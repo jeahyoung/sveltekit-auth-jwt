@@ -2,89 +2,23 @@
 	//import '$styles/global.css';
 	import '../app.css';
 	import { session } from '$app/stores';
+
+	// Loading components
+	import Layout from '../components/Layout.svelte';
+	import Header from '../components/Layout/Header.svelte';
+	import Footer from '../components/Layout/Footer/Footer.svelte';
+	import FooterWidgets from '../components/Layout/Footer/FooterWidgets.svelte';
+	import FooterCopyright from '../components/Layout/Footer/FooterCopyright.svelte';
 </script>
 
 <svelte:head>
 	<title>SvelteKit Auth JWT</title>
 </svelte:head>
 
-<nav>
-	<h1><a href="/">Ninja Smoothies</a></h1>
-	<ul>
-		{#if $session.user}
-			<li>Welcome, {$session.user?.email}</li>
-			<li><a href="/user/logout">Log out</a></li>
-		{/if}
-
-		{#if !$session.user}
-			<li><a href="/user/login">Log in</a></li>
-			<li><a href="/user/signup" class="btn">Sign up</a></li>
-		{/if}
-	</ul>
-</nav>
-
-<slot />
-
-<footer>Copyright 2020 Ninja Smoothies</footer>
-
-<style>
-	body {
-		@apply mx-5 my-10 text-xl tracking-normal bg-white;
-	}
-
-	h1,
-	h2,
-	h3,
-	h4,
-	ul,
-	li,
-	a,
-	p,
-	input,
-	label,
-	button,
-	div,
-	footer {
-		@apply m-0 p-0 font-body text-gray-600;
-	}
-
-	ul {
-		@apply list-none;
-	}
-
-	nav {
-		@apply flex justify-between items-end mb-32;
-	}
-
-	nav ul {
-		@apply flex items-center;
-	}
-
-	nav li {
-		@apply ml-5;
-	}
-
-	nav li a {
-		@apply uppercase font-bold text-sm block px-2 py-4 tracking-wide;
-	}
-
-	.btn {
-		@apply rounded-xl bg-amber-200;
-	}
-
-	form h2 {
-		@apply text-4xl font-black mb-10;
-	}
-
-	form {
-		@apply w-80 mx-0 my-auto p-7 shadow-blue-500/50 rounded-lg bg-white;
-	}
-
-	input {
-		@apply px-2 py-3 rounded border-solid border-2 border-slate-100 text-base w-full;
-	}
-
-	label {
-		@apply block mt-5 mx-0 mb-2;
-	}
-</style>
+<Layout>
+	<Header session={$session} />
+	<slot />
+	<Footer>
+		<FooterCopyright column1={`Copyright ${new Date().getUTCFullYear()} - Ninja Smoothies`} column2={``}/>
+	</Footer>
+</Layout>

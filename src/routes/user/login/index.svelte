@@ -19,7 +19,7 @@
 </script>
 
 <script lang="ts">
-	import { send } from '$lib/api';
+	import { send } from '$lib/utils/api';
 
 	export let error: string;
 	export let success: string;
@@ -33,7 +33,7 @@
 		const response = await send(formEl);
 
 		console.log('Login/index: response', response);
-        
+
 		if (response.error) {
 			error = response.error;
 		}
@@ -58,6 +58,8 @@
 	{#if error}
 		<div class="error">{error}</div>
 	{/if}
+
+    <p>login: test@test.nl</p>
 
 	{#if success}
 		<p>You shouldn't see this message!!!</p>

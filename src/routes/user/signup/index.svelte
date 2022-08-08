@@ -13,7 +13,7 @@
 </script>
 
 <script lang="ts">
-	import { send, sendJson } from '$lib/api';
+	import { send } from '$lib/utils/api';
 
 	export let error: string;
 	export let success: string;
@@ -35,28 +35,11 @@
 		if (response.success) {
 			success = response.success;
 			if (response.data) {
-				location.assign('/login');
+				location.assign('/user/login');
 			}
 		}
 
 		formEl.reset();
-		// const responsef = await fetch(formEl.action,{
-		//     method: formEl.method,
-		//     body: new FormData(formEl),
-		//     headers: {accept: 'application/json'},
-		// });
-
-		// const responsefd = await responsef.json();
-
-		// if(responsefd.error){
-		//     error = responsefd.error;
-		// }
-
-		// if (responsefd.success) {
-		//     success = responsefd.success;
-		// }
-
-		// formEl.reset()
 	};
 </script>
 
@@ -73,7 +56,7 @@
 
 	{#if success}
 		<p>Thank you for signing up!</p>
-		<p><a href="/login">You can log in.</a></p>
+		<p><a href="/user/login">You can log in.</a></p>
 	{/if}
 	<button type="submit">Sign up</button>
 </form>

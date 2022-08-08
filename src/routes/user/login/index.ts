@@ -2,10 +2,12 @@ import type { RequestHandler } from '@sveltejs/kit';
 import * as bcrypt from 'bcrypt-updated';
 import * as cookie from 'cookie';
 import validator from 'validator';
-import { db } from '$lib/database';
-import { createAccessToken, createRefreshToken, maxAge } from '$lib/jwt';
+import _config from '../../../config';
+import { createAccessToken, createRefreshToken } from '$lib/utils/jwt';
+import { db } from '$lib/utils/database';
+import { logger } from '$lib/utils/logger';
 
-export const post: RequestHandler = async ({ request }) => {
+export const POST: RequestHandler = async ({ request }) => {
 	const form = await request.formData();
 	const email = form.get('email');
 	const password = form.get('password');
@@ -74,9 +76,9 @@ export const post: RequestHandler = async ({ request }) => {
 			// only requests from same site can send cookies and serves to protect from CSRF
 			sameSite: 'strict',
 			// only sent over HTTPS
-			secure: process.env.NODE_ENV === 'production',
+			secure: _config.nodeEnv === 'production',
 			// set cookie to expire after a 1minute
-			maxAge: 60
+			maxAge: _config.cookieConfig.COOKIE_ACCESS_MAXAGE
 		})
 	);
 	cookies.push(
@@ -88,11 +90,12 @@ export const post: RequestHandler = async ({ request }) => {
 			// only requests from same site can send cookies and serves to protect from CSRF
 			sameSite: 'strict',
 			// only sent over HTTPS
-			secure: process.env.NODE_ENV === 'production',
-			// set cookie to expire after a month
-			maxAge: maxAge * 14
+			secure: _config.nodeEnv === 'production',
+			// set cookie to expire after a ....
+			maxAge: _config.cookieConfig.COOKIE_REFRESH_MAXAGE
 		})
 	);
+
 	return {
 		status: 200,
 		body: {

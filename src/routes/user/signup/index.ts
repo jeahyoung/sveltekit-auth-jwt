@@ -1,21 +1,17 @@
 import type { RequestHandler } from '@sveltejs/kit';
-import { db } from '$lib/database';
 import validator from 'validator';
 import * as bcrypt from 'bcrypt-updated';
 import * as cookie from 'cookie';
-import { handleErrors } from '$lib/handle_error';
+import _config from '../../../config';
 
-//import { PrismaClient } from "@prisma/client";
-//const prisma = new PrismaClient();
+import { handleErrors } from '$lib/utils/handle_error';
+import { db } from '$lib/utils/database';
+import { createRefreshToken } from '$lib/utils/jwt';
+import { logger } from '$lib/utils/logger';
 
-export const post: RequestHandler = async ({ request }) => {
-	// const jsonData = await request.json();
-	// console.log("SignUp/index.ts: jsonData==>", jsonData);
-	// const email = jsonData.email;
-	// const password = jsonData.password;
-
+export const POST: RequestHandler = async ({ request }) => {
 	const formData = await request.formData();
-	console.log('formData==>', formData);
+	logger('SignUp/formData==>', formData);
 	const email = formData.get('email');
 	const password = formData.get('password');
 
@@ -46,44 +42,28 @@ export const post: RequestHandler = async ({ request }) => {
 		};
 	}
 
-	try {
+	// try {
 		const salt = await bcrypt.genSalt();
 		const passwordHash = await bcrypt.hash(password, salt);
-		//const refreshToken = createRefreshToken();
+		const refreshToken = createRefreshToken();
 		let user = {
 			email,
 			password: passwordHash,
-			refreshToken: ''
+			refreshToken
 		};
 
 		const createUser = await db.user.create({ data: user });
-		//console.log("SignUp/index.ts: createUser",createUser);
+		logger("SignUp/index.ts: createUser",createUser);
 		if (createUser) {
-			//const token = createToken(createUser.id);
 			return {
 				status: 201,
 				body: {
 					success: 'Success',
 					data: createUser
 				}
-				/* headers: {
-                    'Set-Cookie': cookie.serialize('jwt', token, {
-                        // send cookie for every page
-                        path: '/',
-                        // server side only cookie so you can't use `document.cookie`
-                        httpOnly: true,
-                        // only requests from same site can send cookies and serves to protect from CSRF
-                        sameSite: 'strict',
-                        // only sent over HTTPS
-                        secure: process.env.NODE_ENV === 'production',
-                        // set cookie to expire after a month
-                        maxAge: maxAge * 30
-                    }),
-
-                } */
 			};
 		} else {
-			console.log('SignUp/index.ts: Exist user');
+			logger('SignUp/index.ts: Exist user');
 			return {
 				status: 400,
 				body: {
@@ -91,15 +71,15 @@ export const post: RequestHandler = async ({ request }) => {
 				}
 			};
 		}
-	} catch (error) {
-		const errorMessage = handleErrors(error);
-		return {
-			status: 400,
-			body: {
-				error: errorMessage
-			}
-		};
-	}
+	// } catch (error) {
+	// 	const errorMessage = handleErrors(error);
+	// 	return {
+	// 		status: 400,
+	// 		body: {
+	// 			error: errorMessage
+	// 		}
+	// 	};
+	// }
 
 	return {};
 };

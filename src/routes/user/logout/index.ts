@@ -1,7 +1,7 @@
 import type { RequestHandler } from '@sveltejs/kit';
 import * as cookie from 'cookie';
 
-export const get: RequestHandler = async () => {
+export const GET: RequestHandler = async () => {
 	const cookies = [];
 	cookies.push(
 		cookie.serialize('accessToken', '', {

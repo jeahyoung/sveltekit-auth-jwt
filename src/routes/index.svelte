@@ -1,4 +1,11 @@
-<header>
+<script context="module" lang="ts">
+</script>
+
+<script lang="ts">
+	import Page from '../components/Layout/Page.svelte';
+</script>
+
+<Page>
 	<div class="smoothie">
 		<img src="/img/smoothie.png" alt="" />
 	</div>
@@ -7,4 +14,4 @@
 		<h3>By Ninjas For Ninjas</h3>
 		<a href="/smoothies" class="btn">View Recipes</a>
 	</div>
-</header>
+</Page>
