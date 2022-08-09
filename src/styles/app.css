@@ -1,5 +1,3 @@
-
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -11,12 +9,7 @@ body {
 }
 
 body {
-	@apply bg-white text-xl tracking-normal font-body;
-}
-
-.header-wrap {
-	@apply p-5;
-	@apply bg-blue-400;
+	@apply bg-white font-body text-xl tracking-normal;
 }
 
 header {
@@ -39,12 +32,11 @@ nav {
 		@apply flex items-center;
 		li {
 			@apply ml-5;
-			a {
-				@apply block px-2 py-4 text-sm font-bold uppercase tracking-wide;
-			}
-
-			.btn {
+			&.btn {
 				@apply inline-block px-3 text-sm font-bold uppercase;
+				a {
+					@apply block px-2 py-4 text-sm font-bold uppercase tracking-wide;
+				}
 			}
 		}
 	}
@@ -57,14 +49,13 @@ footer {
 	@apply max-w-screen-xl;
 	@apply mx-auto;
 }
-main,
-footer {
+main {
 	flex: 1;
 	display: flex;
 	flex-direction: column;
 	padding: 1rem;
 	box-sizing: border-box;
-	@apply mt-32 text-center text-gray-500;
+	@apply mt-12 text-center text-gray-500 md:mt-32;
 }
 
 h1,
@@ -78,25 +69,46 @@ p,
 input,
 label,
 button,
-div,
-footer {
+div {
 	@apply m-0 p-0 font-body text-gray-600;
 }
 
+#page {
+	@apply mb-[1em] md:mb-[4em];
+}
+.header-wrap {
+	@apply p-5;
+}
+
+.headings {
+	@apply pt-4;
+}
+.headings a.btn {
+	@apply mt-5 inline-block py-3 px-5;
+}
+.headings > * {
+	@apply mb-2;
+}
+.smoothie_wrapper {
+	@apply flex w-full flex-col md:flex-row md:items-center md:justify-start;
+}
+.smoothie {
+	@apply mx-auto w-[8em] md:ml-0 md:mr-[10em] md:w-auto;
+}
 .btn {
 	@apply rounded-xl bg-amber-200;
 }
 
 button {
-	@apply mt-7 block rounded-xl border-0 bg-amber-500 px-2 py-4 text-2xl font-bold uppercase tracking-widest;
+	@apply mt-7 block rounded-xl border-0 !bg-amber-500 px-6 py-3 text-2xl font-bold uppercase tracking-widest;
 }
 
 .recipes {
-	@apply mx-20 my-auto grid max-w-5xl grid-cols-3 gap-x-7 gap-y-20;
+	@apply mx-4 my-auto md:mx-20 md:grid md:max-w-5xl md:grid-cols-3 md:gap-x-7 md:gap-y-20;
 }
 
 .recipe {
-	@apply relative inline-block rounded-2xl pt-0 pr-5 pb-7 pl-5 text-center;
+	@apply relative inline-block rounded-2xl text-center md:pt-0 md:pr-5 md:pb-7 pb-16 md:pl-5;
 	img {
 		@apply mx-auto -mt-7 mb-5 w-auto;
 	}
@@ -107,7 +119,7 @@ ul {
 }
 
 form {
-	@apply mx-0 my-auto w-80 rounded-lg bg-white p-7 shadow-blue-500/50;
+	@apply mx-0 my-auto w-80 rounded-lg bg-white p-7 text-left shadow-blue-500/50;
 	h2 {
 		@apply mb-10 text-4xl font-black;
 	}
