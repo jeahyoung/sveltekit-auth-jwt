@@ -24,6 +24,8 @@
 	export let error: string;
 	export let success: string;
 
+	import Page from '../../../components/Layout/Page.svelte';
+
 	const login = async (event: SubmitEvent) => {
 		error = '';
 		success = '';
@@ -49,20 +51,22 @@
 	};
 </script>
 
-<form on:submit|preventDefault={login} method="post" autocomplete="off">
-	<h2>Log in</h2>
-	<label for="email">Email</label>
-	<input type="text" name="email" required />
-	<label for="password">Password</label>
-	<input type="password" name="password" required />
-	{#if error}
-		<div class="error">{error}</div>
-	{/if}
+<Page>
+	<form on:submit|preventDefault={login} method="post" autocomplete="off" class="login-form">
+		<h2>Log in</h2>
+		<label for="email">Email</label>
+		<input type="text" name="email" required />
+		<label for="password">Password</label>
+		<input type="password" name="password" required />
+		{#if error}
+			<div class="error">{error}</div>
+		{/if}
 
-    <p>login: test@test.nl</p>
+		<p>login: test@test.nl</p>
 
-	{#if success}
-		<p>You shouldn't see this message!!!</p>
-	{/if}
-	<button type="submit">Log in</button>
-</form>
+		{#if success}
+			<p>You shouldn't see this message!!!</p>
+		{/if}
+		<button type="submit">Log in</button>
+	</form>
+</Page>

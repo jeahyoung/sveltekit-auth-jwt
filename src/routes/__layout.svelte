@@ -1,8 +1,9 @@
 <script lang="ts">
-	//import '$styles/global.css';
-	import '../app.css';
 	import { session } from '$app/stores';
 
+	// Loading styles
+	import '$styles/app.css';
+    
 	// Loading components
 	import Layout from '../components/Layout.svelte';
 	import Header from '../components/Layout/Header.svelte';
@@ -19,6 +20,9 @@
 	<Header session={$session} />
 	<slot />
 	<Footer>
-		<FooterCopyright column1={`Copyright ${new Date().getUTCFullYear()} - Ninja Smoothies`} column2={``}/>
+		<FooterCopyright
+			column1={`Copyright ${new Date().getUTCFullYear()} - Ninja Smoothies`}
+			column2={``}
+		/>
 	</Footer>
 </Layout>
