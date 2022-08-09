@@ -18,12 +18,12 @@
 			<ul>
 				{#if session.user}
 					<li>Welcome, {session.user?.email}</li>
-					<li><a href="/user/logout">Log out</a></li>
+					<li class="btn"><a href="/user/logout">Log out</a></li>
 				{/if}
 
 				{#if !session.user}
 					<li><a href="/user/login">Log in</a></li>
-					<li><a href="/user/signup" class="btn">Sign up</a></li>
+					<li class="btn"><a href="/user/signup" class="btn">Sign up</a></li>
 				{/if}
 			</ul>
 		</nav>
